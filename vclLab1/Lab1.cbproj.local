@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<BorlandProject>
+	<Transactions>
+    <Transaction>2020/03/20 20:44:24.000.483,=C:\Users\krast\Documents\Embarcadero\Studio\Projects\Project1PCH1.h</Transaction>
+    <Transaction>2020/03/20 20:44:25.000.695,=C:\Users\krast\Documents\Embarcadero\Studio\Projects\Unit1.cpp</Transaction>
+    <Transaction>2020/03/20 22:00:34.000.224,C:\Users\krast\Desktop\vclLab1\Lab.h=C:\Users\krast\Documents\Embarcadero\Studio\Projects\Project1PCH1.h</Transaction>
+    <Transaction>2020/03/20 22:01:07.000.527,C:\Users\krast\Desktop\vclLab1\Unit.dfm=C:\Users\krast\Documents\Embarcadero\Studio\Projects\Unit1.dfm</Transaction>
+    <Transaction>2020/03/20 22:01:07.000.527,C:\Users\krast\Desktop\vclLab1\Unit.h=C:\Users\krast\Documents\Embarcadero\Studio\Projects\Unit1.h</Transaction>
+    <Transaction>2020/03/20 22:01:07.000.527,C:\Users\krast\Desktop\vclLab1\Unit.cpp=C:\Users\krast\Documents\Embarcadero\Studio\Projects\Unit1.cpp</Transaction>
+    <Transaction>2020/03/20 22:01:20.000.373,C:\Users\krast\Desktop\vclLab1\Lab1.cbproj=C:\Users\krast\Documents\Embarcadero\Studio\Projects\Project1.cbproj</Transaction>
+    <Transaction>2020/04/01 22:16:43.000.952,C:\Users\krast\Desktop\vclLab1\Lab.h=</Transaction>
+    <Transaction>2020/04/01 22:23:20.000.399,=C:\Users\krast\Desktop\vclLab1\File1.cpp</Transaction>
+    <Transaction>2020/04/01 22:23:34.000.398,C:\Users\krast\Desktop\vclLab1\MRect.cpp=C:\Users\krast\Desktop\vclLab1\File1.cpp</Transaction>
+    <Transaction>2020/04/01 22:30:44.000.211,C:\Users\krast\Desktop\vclLab1\MRect.cpp=</Transaction>
+    <Transaction>2020/04/01 22:32:09.000.037,=C:\Users\krast\Desktop\vclLab1\File1.h</Transaction>
+    <Transaction>2020/04/01 22:32:25.000.364,C:\Users\krast\Desktop\vclLab1\MRect.h=C:\Users\krast\Desktop\vclLab1\File1.h</Transaction>
+    <Transaction>2020/04/01 22:35:00.000.036,C:\Users\krast\Desktop\vclLab1\MRect.h=C:\Users\krast\Desktop\vclLab1\MRect.h</Transaction>
+    <Transaction>2020/04/01 22:35:27.000.413,C:\Users\krast\Desktop\vclLab1\MRect.cpp=C:\Users\krast\Desktop\vclLab1\MRect.cpp</Transaction>
+    <Transaction>2020/04/01 22:39:54.000.267,=C:\Users\krast\Desktop\vclLab1\File1.h</Transaction>
+    <Transaction>2020/04/01 22:40:09.000.283,C:\Users\krast\Desktop\vclLab1\MCart.h=C:\Users\krast\Desktop\vclLab1\File1.h</Transaction>
+  </Transactions>
+</BorlandProject>

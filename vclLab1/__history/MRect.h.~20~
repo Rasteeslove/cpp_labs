@@ -1,0 +1,203 @@
+#include <math.h>
+#include <limits>
+#include <vector>
+
+#define DOUBLE_EPSILON 0.00001
+
+double my_abs(double number);
+bool * getRelativeLocations(double * corners, int x, int y);
+bool isWithinLinearMethod(int x, int y, double * corners);
+bool isWithinAngularMethod(int x, int y, double * corners);
+bool getRelativeLocation(double * pointA, double * pointB, int x, int y);
+
+class MRect
+{
+public:
+
+	static std::vector<int> lengthSign;
+	static std::vector<int> widthSign;
+
+private:
+	double angle;
+	double centerX, centerY;
+	double width, length;
+
+
+	double * GetCorners()
+	{
+		double * corners = new double[8];
+
+		
+
+		corners[0] = centerX + (length / 2) * cos(PI * angle / 180) + (width / 2) * sin(PI * angle / 180);
+		corners[1] = centerY + (length / 2) * sin(PI * angle / 180) - (width / 2) * cos(PI * angle / 180);
+
+		corners[2] = centerX + (length / 2) * cos(PI * angle / 180) - (width / 2) * sin(PI * angle / 180);
+		corners[3] = centerY + (length / 2) * sin(PI * angle / 180) + (width / 2) * cos(PI * angle / 180);
+
+		corners[4] = centerX - (length / 2) * cos(PI * angle / 180) - (width / 2) * sin(PI * angle / 180);
+		corners[5] = centerY - (length / 2) * sin(PI * angle / 180) + (width / 2) * cos(PI * angle / 180);
+
+		corners[6] = centerX - (length / 2) * cos(PI * angle / 180) + (width / 2) * sin(PI * angle / 180);
+		corners[7] = centerY - (length / 2) * sin(PI * angle / 180) - (width / 2) * cos(PI * angle / 180);
+		for (int i = 0; i < 8; i += 2) {
+			corners[i] = centerX + lengthSign[i / 2] * (length / 2) * cos(PI * angle / 180) + widthSign[i / 2] * (width / 2) * sin(PI * angle / 180);
+		}
+
+		for (int i = 1; i < 8; i += 2) {
+			corners[i] = centerY + lengthSign[i / 2] * (length / 2) * cos(PI * angle / 180) - widthSign[i / 2] * (width / 2) * sin(PI * angle / 180);
+		}
+		return corners;
+	}
+
+public:
+
+	double getX()
+	{
+		return centerX;
+	}
+
+	double getY()
+	{
+        return centerY;
+    }
+
+	double getAngle()
+	{
+        return angle;
+	}
+
+	void Move(double ang, int dist)
+	{
+		centerX += dist * cos(PI / 180 * ang);
+		centerY += dist * sin(PI / 180 * ang);
+	}
+
+	void Rotate(double ang)
+	{
+		angle += ang;
+		while (angle > 360)
+			angle -= 360;
+		while (angle < -360)
+			angle += 360;
+	}
+
+	MRect(double x, double y, double w, double l, double ang)
+	{
+		centerX = x;
+		centerY = y;
+		width = w;
+		length = l;
+		angle = ang;
+	}
+
+	~MRect()
+	{}
+
+	virtual void Draw(TImage * screen)
+	{
+		double * points = GetCorners();
+		screen->Canvas->MoveTo(points[6], points[7]);
+		for (int i = 0; i <= 6; i+=2)
+			screen->Canvas->LineTo(points[i], points[i + 1]);
+		delete[] points;
+	}
+
+	MRect operator =(const MRect &other)
+	{
+		this->angle = other.angle;
+		this->centerX = other.centerX;
+		this->centerY = other.centerY;
+		this->width = other.width;
+		this->length = other.length;
+
+		return *this;
+	}
+
+	bool isWithin(int x, int y)           // using angular method
+	{
+		double * corners = GetCorners();
+
+		bool returnValue = isWithinAngularMethod(x, y, corners);
+
+        delete[] corners;
+		return returnValue;
+	}
+
+};
+
+std::vector<int> MRect::lengthSign = {1,1,-1,-1};
+std::vector<int> MRect::widthSign = {1,-1,-1,1};
+
+double my_abs(double number)
+{
+	if (number < 0)
+		return -number;
+	return number;
+}
+
+bool isWithinLinearMethod(int x, int y, double * corners)                // doesn't work sometimes 4 some reason
+{
+	bool * relativeLocations;
+    relativeLocations = getRelativeLocations(corners, x, y);
+
+	bool returnValue = 0;
+	if (relativeLocations[0] && !relativeLocations[1] && !relativeLocations[2] && relativeLocations[3])
+	returnValue = 1;
+	else if (!relativeLocations[0] && relativeLocations[1] && relativeLocations[2] && !relativeLocations[3])
+	returnValue = 1;
+
+	delete[] corners;
+	delete[] relativeLocations;
+
+	return returnValue;
+}
+
+bool * getRelativeLocations(double * corners, int x, int y)
+{
+	bool * relLocs = new bool[4];
+
+	relLocs[0] = getRelativeLocation(&corners[0], &corners[6], x, y);
+	for (size_t i = 1; i < 4; i++) {
+		relLocs[i] = getRelativeLocation(&corners[2 * i - 2], &corners[2 * i], x, y);
+	}
+
+    return relLocs;
+}
+
+bool getRelativeLocation(double * pointA, double * pointB, int x, int y)
+{
+	if (my_abs(pointA[0] - pointB[0]) > my_abs(pointA[1] - pointB[1]))
+		return y > ((pointA[1] - pointB[1]) / (pointA[0] - pointB[0])) * (x - pointA[0]) + pointA[1];
+	else
+        return x > ((pointA[0] - pointB[0]) / (pointA[1] - pointB[1])) * (y - pointA[1]) + pointA[0];
+}
+
+double distance(double x1, double y1, double x2, double y2)
+{
+    return sqrt((x1 - x2) * (x1 - x2) + (y1 - y2) * (y1 - y2));
+}
+
+double getAngle(double a, double b, double c)
+{
+	return acos((a * a + b * b - c * c) / (2 * a * b));
+}
+
+bool isEqual(double one, double two)
+{
+	return std::fabs(one - two) < /*std::numeric_limits<double>::epsilon()*/DOUBLE_EPSILON;
+}
+
+bool isWithinAngularMethod(int x, int y, double * corners)
+{
+	double angle = 0;
+
+	for (int i = 0; i <= 4; i+=2)
+		angle += getAngle(distance(x, y, corners[i], corners[i + 1]), distance(x, y, corners[i + 2], corners[i + 3]), distance(corners[i], corners[i + 1], corners[i + 2], corners[i + 3]));
+
+	angle += getAngle(distance(x, y, corners[0], corners[1]), distance(x, y, corners[6], corners[7]), distance(corners[0], corners[1], corners[6], corners[7]));
+
+	return isEqual(2 * PI, angle);
+}
+
+

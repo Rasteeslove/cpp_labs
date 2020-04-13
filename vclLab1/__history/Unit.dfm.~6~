@@ -1,0 +1,75 @@
+object Form1: TForm1
+  Left = 0
+  Top = 0
+  Caption = 'Carts'
+  ClientHeight = 436
+  ClientWidth = 746
+  Color = clBtnFace
+  Font.Charset = DEFAULT_CHARSET
+  Font.Color = clWindowText
+  Font.Height = -11
+  Font.Name = 'Tahoma'
+  Font.Style = []
+  KeyPreview = True
+  OldCreateOrder = False
+  OnActivate = FormActivate
+  OnKeyDown = FormKeyDown
+  OnKeyUp = FormKeyUp
+  PixelsPerInch = 96
+  TextHeight = 13
+  object Canv: TImage
+    Left = 8
+    Top = 8
+    Width = 593
+    Height = 420
+    OnClick = CanvClick
+  end
+  object DebugConsole: TLabel
+    Left = 616
+    Top = 400
+    Width = 3
+    Height = 13
+  end
+  object CAdd: TButton
+    Left = 632
+    Top = 16
+    Width = 89
+    Height = 25
+    Caption = 'Add Cart'
+    TabOrder = 0
+    OnClick = CAddClick
+  end
+  object CCAdd: TButton
+    Left = 632
+    Top = 88
+    Width = 89
+    Height = 25
+    Caption = 'Add Cargo'
+    TabOrder = 1
+    OnClick = CCAddClick
+  end
+  object CCRem: TButton
+    Left = 632
+    Top = 119
+    Width = 89
+    Height = 25
+    Caption = 'Remove Cargo'
+    TabOrder = 2
+    OnClick = CCRemClick
+  end
+  object CRem: TButton
+    Left = 632
+    Top = 47
+    Width = 89
+    Height = 25
+    Caption = 'Remove Cart'
+    TabOrder = 3
+    OnClick = CRemClick
+  end
+  object Process: TTimer
+    Interval = 40
+    OnTimer = ProcessTimer
+    Left = 688
+    Top = 272
+  end
+end
