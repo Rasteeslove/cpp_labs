@@ -1,0 +1,10 @@
+debug/adddishdialog.o
+debug/dish.o
+debug/dishinfodialog.o
+debug/main.o
+debug/mainwindow.o
+debug/order.o
+debug/tablewidgetnumberitem.o
+debug/moc_adddishdialog.o
+debug/moc_dishinfodialog.o
+debug/moc_mainwindow.o

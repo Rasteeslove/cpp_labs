@@ -1,0 +1,268 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>800</width>
+    <height>600</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>MainWindow</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <widget class="QGroupBox" name="menuGroup">
+    <property name="geometry">
+     <rect>
+      <x>5</x>
+      <y>5</y>
+      <width>310</width>
+      <height>590</height>
+     </rect>
+    </property>
+    <property name="title">
+     <string>The Menu:</string>
+    </property>
+    <widget class="QPushButton" name="addNewDishButton">
+     <property name="geometry">
+      <rect>
+       <x>0</x>
+       <y>15</y>
+       <width>140</width>
+       <height>20</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Add new dish to the menu</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="removeSelectedDishes">
+     <property name="geometry">
+      <rect>
+       <x>140</x>
+       <y>15</y>
+       <width>170</width>
+       <height>20</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Remove selected from the menu</string>
+     </property>
+    </widget>
+    <widget class="QTableWidget" name="dishesTable">
+     <property name="geometry">
+      <rect>
+       <x>0</x>
+       <y>35</y>
+       <width>310</width>
+       <height>555</height>
+      </rect>
+     </property>
+     <property name="focusPolicy">
+      <enum>Qt::NoFocus</enum>
+     </property>
+     <property name="sortingEnabled">
+      <bool>true</bool>
+     </property>
+     <property name="columnCount">
+      <number>3</number>
+     </property>
+     <column>
+      <property name="text">
+       <string>name:</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>times ordered:</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>price:</string>
+      </property>
+     </column>
+    </widget>
+   </widget>
+   <widget class="QGroupBox" name="newOrderGroup">
+    <property name="geometry">
+     <rect>
+      <x>315</x>
+      <y>5</y>
+      <width>480</width>
+      <height>200</height>
+     </rect>
+    </property>
+    <property name="title">
+     <string>New order:</string>
+    </property>
+    <widget class="QPushButton" name="addDishesButton">
+     <property name="geometry">
+      <rect>
+       <x>380</x>
+       <y>15</y>
+       <width>71</width>
+       <height>20</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Add dish(es)</string>
+     </property>
+    </widget>
+    <widget class="QListWidget" name="currentOrder">
+     <property name="geometry">
+      <rect>
+       <x>5</x>
+       <y>15</y>
+       <width>375</width>
+       <height>185</height>
+      </rect>
+     </property>
+     <property name="focusPolicy">
+      <enum>Qt::NoFocus</enum>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="removeDishesButton">
+     <property name="geometry">
+      <rect>
+       <x>380</x>
+       <y>35</y>
+       <width>101</width>
+       <height>23</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Remove dish(es)</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="pushButton_5">
+     <property name="geometry">
+      <rect>
+       <x>390</x>
+       <y>160</y>
+       <width>80</width>
+       <height>30</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Make order</string>
+     </property>
+    </widget>
+    <widget class="QSpinBox" name="tableNumSpin">
+     <property name="geometry">
+      <rect>
+       <x>390</x>
+       <y>80</y>
+       <width>80</width>
+       <height>20</height>
+      </rect>
+     </property>
+     <property name="minimum">
+      <number>1</number>
+     </property>
+     <property name="maximum">
+      <number>60</number>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label">
+     <property name="geometry">
+      <rect>
+       <x>390</x>
+       <y>60</y>
+       <width>80</width>
+       <height>20</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>9</pointsize>
+      </font>
+     </property>
+     <property name="text">
+      <string>Table number:</string>
+     </property>
+    </widget>
+    <widget class="QSpinBox" name="quantitySpin">
+     <property name="geometry">
+      <rect>
+       <x>450</x>
+       <y>15</y>
+       <width>30</width>
+       <height>20</height>
+      </rect>
+     </property>
+     <property name="minimum">
+      <number>1</number>
+     </property>
+     <property name="maximum">
+      <number>9</number>
+     </property>
+    </widget>
+   </widget>
+   <widget class="QGroupBox" name="allOrdersGroup">
+    <property name="geometry">
+     <rect>
+      <x>315</x>
+      <y>205</y>
+      <width>480</width>
+      <height>390</height>
+     </rect>
+    </property>
+    <property name="title">
+     <string>All orders:</string>
+    </property>
+    <widget class="QListWidget" name="allOrdersListWidget">
+     <property name="geometry">
+      <rect>
+       <x>5</x>
+       <y>40</y>
+       <width>475</width>
+       <height>350</height>
+      </rect>
+     </property>
+     <property name="focusPolicy">
+      <enum>Qt::NoFocus</enum>
+     </property>
+    </widget>
+    <widget class="QComboBox" name="filter">
+     <property name="geometry">
+      <rect>
+       <x>5</x>
+       <y>15</y>
+       <width>100</width>
+       <height>20</height>
+      </rect>
+     </property>
+     <property name="focusPolicy">
+      <enum>Qt::NoFocus</enum>
+     </property>
+     <item>
+      <property name="text">
+       <string>Today</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>Last 7 days</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>Last 30 days</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>All time</string>
+      </property>
+     </item>
+    </widget>
+   </widget>
+  </widget>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

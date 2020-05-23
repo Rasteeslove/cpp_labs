@@ -1,0 +1,10 @@
+release/adddishdialog.o
+release/dish.o
+release/dishinfodialog.o
+release/main.o
+release/mainwindow.o
+release/order.o
+release/tablewidgetnumberitem.o
+release/moc_adddishdialog.o
+release/moc_dishinfodialog.o
+release/moc_mainwindow.o
