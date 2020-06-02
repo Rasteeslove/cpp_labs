@@ -8,7 +8,6 @@
 #include "ui_mainwindow.h"
 
 #include "dishinfodialog.h"
-#include "orderinfodialog.h"
 
 std::vector<dish> menu_dishes;
 std::vector<order> orders;
@@ -28,26 +27,27 @@ void MainWindow::displayMenu()
     ui->dishesTable->setSortingEnabled(false);
 
     freeMenuMemory();
-    for (size_t i = 0; i < menu_dishes.size(); i++)
+    for (size_t i = 0, j = 0; i < menu_dishes.size(); i++)
         if (menu_dishes[i].is_on_the_menu)
         {
             ui->dishesTable->insertRow(ui->dishesTable->rowCount());
             QTableWidgetItem * name = new QTableWidgetItem(menu_dishes[i].name);
             name->setFlags(name->flags() ^ Qt::ItemIsEditable);
 
-            // associating QTableWidgetItem with dish'es id
+            // associating QTableWidgetItem with dish's id
             name->setData(Qt::UserRole, menu_dishes[i].id);
 
-            ui->dishesTable->setItem(i, 0, name);
+            ui->dishesTable->setItem(j, 0, name);
             TableWidgetNumberItem * popularity = new TableWidgetNumberItem(QString::
                                                                           number(menu_dishes[i].popularity));
             popularity->setFlags(popularity->flags() ^ Qt::ItemIsEditable);
-            ui->dishesTable->setItem(i, 1, popularity);
+            ui->dishesTable->setItem(j, 1, popularity);
 
             TableWidgetNumberItem * price = new TableWidgetNumberItem(QString("%1").arg(menu_dishes[i].price,
                                                                                         0, 'f', 2, QChar('0')));
             price->setFlags(price->flags() ^ Qt::ItemIsEditable);
-            ui->dishesTable->setItem(i, 2, price);
+            ui->dishesTable->setItem(j, 2, price);
+            j++;
         }
 
     ui->dishesTable->setSortingEnabled(true);
