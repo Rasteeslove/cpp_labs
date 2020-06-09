@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>800</width>
+    <height>400</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>MainWindow</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <widget class="QTreeWidget" name="treeWidget">
+    <property name="geometry">
+     <rect>
+      <x>230</x>
+      <y>40</y>
+      <width>560</width>
+      <height>350</height>
+     </rect>
+    </property>
+    <column>
+     <property name="text">
+      <string>key</string>
+     </property>
+    </column>
+    <column>
+     <property name="text">
+      <string>string</string>
+     </property>
+    </column>
+   </widget>
+   <widget class="QListWidget" name="traversalResultListWidget">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>170</y>
+      <width>210</width>
+      <height>220</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="rmvItemButton">
+    <property name="geometry">
+     <rect>
+      <x>700</x>
+      <y>10</y>
+      <width>90</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>remove item</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="addButton">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>10</y>
+      <width>90</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>add to tree</string>
+    </property>
+   </widget>
+   <widget class="QTextEdit" name="whatToAddTextEdit">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>40</y>
+      <width>211</width>
+      <height>91</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="searchEdit">
+    <property name="geometry">
+     <rect>
+      <x>230</x>
+      <y>10</y>
+      <width>120</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="placeholderText">
+     <string>search...</string>
+    </property>
+   </widget>
+   <widget class="QComboBox" name="traversalComboBox">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>141</y>
+      <width>120</width>
+      <height>18</height>
+     </rect>
+    </property>
+    <item>
+     <property name="text">
+      <string>NLR</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>LNR</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>RNL</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>LRN</string>
+     </property>
+    </item>
+   </widget>
+   <widget class="QPushButton" name="loadCitiesButton">
+    <property name="geometry">
+     <rect>
+      <x>100</x>
+      <y>10</y>
+      <width>120</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>load cities' names</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="searchResult">
+    <property name="geometry">
+     <rect>
+      <x>370</x>
+      <y>10</y>
+      <width>321</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+  </widget>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
