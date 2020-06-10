@@ -1,0 +1,32 @@
+//---------------------------------------------------------------------------
+
+#ifndef PointH
+#define PointH
+//---------------------------------------------------------------------------
+#endif
+
+#include <math.h>
+#include <vector>
+
+#define PI 3.14159265
+
+#define P_RADIUS 5
+
+class mPoint
+{
+public:
+
+	int x, y;
+
+	mPoint(int x, int y)
+	{
+		this->x = x;
+        this->y = y;
+	}
+
+	void Draw(TImage * screen)
+	{
+		screen->Canvas->Ellipse(x - P_RADIUS, y - P_RADIUS, x + P_RADIUS, y + P_RADIUS);
+    }
+
+};

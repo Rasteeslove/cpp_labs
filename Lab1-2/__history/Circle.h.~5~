@@ -1,0 +1,27 @@
+//---------------------------------------------------------------------------
+
+#ifndef CircleH
+#define CircleH
+//---------------------------------------------------------------------------
+#endif
+
+class Circle : public Shape
+{
+public:
+
+	int radius;
+
+	Circle(int rad)
+	{
+        radius = rad;
+	}
+
+	void Draw(TImage * screen) override
+	{
+		Shape::Draw();
+
+		screen->Canvas->Ellipse(center->x - radius, center->y - radius,
+		                        center->x + radius, center->y + radius);
+	}
+
+};

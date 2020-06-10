@@ -1,0 +1,38 @@
+//---------------------------------------------------------------------------
+
+#ifndef PointH
+#define PointH
+//---------------------------------------------------------------------------
+#endif
+
+#include <math.h>
+#include <vector>
+
+#define PI 3.14159265
+
+#define P_RADIUS 5
+
+class mPoint
+{
+public:
+
+	int x, y;
+
+	mPoint(int x, int y)
+	{
+		this->x = x;
+        this->y = y;
+	}
+
+	void Draw(int gx, int gy, TImage * screen)
+	{
+		screen->Canvas->Ellipse(gx + x - P_RADIUS, gy + y - P_RADIUS,
+		                        gx + x + P_RADIUS, gy + y + P_RADIUS);
+	}
+
+	bool isNear(int x, int y)
+	{
+        return sqrt((this->x - x) + (this->y - y)) < 5;
+    }
+
+};

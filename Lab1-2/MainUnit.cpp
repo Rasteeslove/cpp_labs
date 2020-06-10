@@ -1,0 +1,360 @@
+//---------------------------------------------------------------------------
+
+#include <vcl.h>
+#pragma hdrstop
+
+#include "MainUnit.h"
+//---------------------------------------------------------------------------
+#pragma package(smart_init)
+#pragma resource "*.dfm"
+TForm1 *Form1;
+//---------------------------------------------------------------------------
+__fastcall TForm1::TForm1(TComponent* Owner)
+	: TForm(Owner)
+{
+}
+//---------------------------------------------------------------------------
+
+#include "Polygon.h"
+#include "Circle.h"
+
+std::vector<mPolygon*> polygons;
+std::vector<Circle*> circles;
+
+Circle * circle_selected;
+
+bool center_is_selected;
+mPolygon * polygon_selected;
+mPoint * point_selected;
+
+bool move_up = false, move_down = false, move_left = false, move_right = false,
+	 scale_in = false, scale_out = false,
+	 rotate_cw = false, rotate_acw = false;
+
+void Clear(TImage * screen)
+{
+	screen->Canvas->Rectangle(0, 0, screen->Width, screen->Height);
+}
+
+void DrawAll(TImage * screen, TLabel * perimeter_label, TLabel * square_label)
+{
+	Clear(screen);
+	for (int i = 0; i < polygons.size(); i++)
+		polygons[i]->Draw(screen);
+
+	for (int i = 0; i < circles.size(); i++)
+        circles[i]->Draw(screen);
+
+    int perimeter = -1, square = -1;
+
+	if (circle_selected != nullptr) {
+		perimeter = circle_selected->Perimeter();
+        square = circle_selected->Square();
+	}
+	else if (polygon_selected != nullptr) {
+		perimeter = polygon_selected->Perimeter();
+        square = polygon_selected->Square();
+	}
+
+	perimeter_label->Caption = "Perimeter: " + (perimeter == -1 ? "-" : String(perimeter));
+	square_label->Caption = "Square: " + (square == -1 ? "-" : String(square));
+
+	if (point_selected != nullptr)
+	{
+		screen->Canvas->Brush->Color = clRed;
+
+		if (center_is_selected)
+			point_selected->Draw(0, 0, screen);
+		else
+			point_selected->Draw(polygon_selected->center->x, polygon_selected->center->y, screen);
+
+		screen->Canvas->Brush->Color = clWhite;
+	}
+
+	if (circle_selected != nullptr) {
+		screen->Canvas->Brush->Color = clRed;
+
+        circle_selected->Draw(screen);
+
+		screen->Canvas->Brush->Color = clWhite;
+	}
+
+}
+
+//---------------------------------------------------------------------------
+void __fastcall TForm1::Image1Click(TObject *Sender)
+{
+	circle_selected = nullptr;
+
+	center_is_selected = false;
+	polygon_selected = nullptr;
+    point_selected = nullptr;
+
+	int num_of_vertices = Edit1->Text.ToIntDef(0);
+	int size = Edit2->Text.ToIntDef(0);
+
+	TPoint mouse;
+	mouse = Mouse->CursorPos;
+	mouse = ScreenToClient(mouse);
+	int mousex = mouse.x - Image1->Left;
+	int mousey = mouse.y - Image1->Top;
+
+	if (num_of_vertices == 0 && size > 0) {
+		Circle * new_one = new Circle(mousex, mousey, size);
+		circles.push_back(new_one);
+	}
+	else if (num_of_vertices <= 2 || size <= 0)
+	{
+		for (int i = 0; i < polygons.size(); i++) {
+			for (int j = 0; j < polygons[i]->rel_points.size(); j++) {
+				mPoint combined(*polygons[i]->center, *polygons[i]->rel_points[j]);
+				if (combined.isNear(mousex, mousey)) {
+					point_selected = polygons[i]->rel_points[j];
+                    polygon_selected = polygons[i];
+					break;
+				}
+			}
+
+			if (point_selected == nullptr && polygons[i]->center->isNear(mousex, mousey))
+			{
+				center_is_selected = true;
+                polygon_selected = polygons[i];
+				point_selected = polygons[i]->center;
+			}
+
+			if (point_selected != nullptr) {
+                break;
+			}
+		}
+
+		for (int i = 0; i < circles.size(); i++) {
+			if (circles[i]->center->isNear(mousex, mousey)) {
+                circle_selected = circles[i];
+			}
+		}
+	}
+	else
+	{
+		mPolygon * new_one = new mPolygon(mousex, mousey, num_of_vertices, size);
+		polygons.push_back(new_one);
+	}
+
+	DrawAll(Image1, Label3, Label4);
+}
+//---------------------------------------------------------------------------
+
+void __fastcall TForm1::Button1MouseDown(TObject *Sender, TMouseButton Button, TShiftState Shift,
+          int X, int Y)
+{
+	if (point_selected == nullptr && circle_selected == nullptr)
+		return;
+
+	move_up = true;
+
+	Timer1->Enabled = true;
+}
+//---------------------------------------------------------------------------
+void __fastcall TForm1::Timer1Timer(TObject *Sender)
+{
+	if (move_up || move_down || move_left || move_right) {
+
+		int dx = 0, dy = 0;
+
+		if (move_up)
+			dy = -5;
+		else if (move_down)
+			dy = 5;
+		else if (move_left)
+			dx = -5;
+		else if (move_right) 
+			dx = 5;
+
+		if (center_is_selected)
+			polygon_selected->Move(dx, dy);
+		else if (point_selected != nullptr)
+		{
+			point_selected->x += dx;
+			point_selected->y += dy;
+
+            polygon_selected->updCenter();
+		}
+		else
+		{
+            circle_selected->Move(dx, dy);
+        }
+	}
+
+	else if (scale_in || scale_out) {
+
+		double mult = 1;
+
+		if (scale_in) {
+			mult = 0.9;
+		} else
+		{
+			mult = 1.1;
+        }
+
+		if (center_is_selected)
+		{
+			polygon_selected->Scale(mult);
+		}
+		else if (circle_selected != nullptr) {
+            circle_selected->Scale(mult);
+		}
+	}
+
+	else if (rotate_cw || rotate_acw) {
+		double angle = rotate_cw ? 0.1 : -0.1;
+
+        if (center_is_selected)
+		{
+			polygon_selected->Rotate(angle);
+		}
+	}
+
+    DrawAll(Image1, Label3, Label4);
+
+}
+//---------------------------------------------------------------------------
+void __fastcall TForm1::Button1MouseUp(TObject *Sender, TMouseButton Button, TShiftState Shift,
+          int X, int Y)
+{
+	move_up = false;
+
+	Timer1->Enabled = false;
+}
+//---------------------------------------------------------------------------
+void __fastcall TForm1::Button2MouseDown(TObject *Sender, TMouseButton Button, TShiftState Shift,
+          int X, int Y)
+{
+	if (point_selected == nullptr && circle_selected == nullptr)
+		return;
+
+	move_right = true;
+
+	Timer1->Enabled = true;
+}
+//---------------------------------------------------------------------------
+void __fastcall TForm1::Button2MouseUp(TObject *Sender, TMouseButton Button, TShiftState Shift,
+          int X, int Y)
+{
+	move_right = false;
+
+	Timer1->Enabled = false;
+}
+//---------------------------------------------------------------------------
+void __fastcall TForm1::Button3MouseDown(TObject *Sender, TMouseButton Button, TShiftState Shift,
+          int X, int Y)
+{
+	if (point_selected == nullptr && circle_selected == nullptr)
+		return;
+
+	move_down = true;
+
+	Timer1->Enabled = true;
+}
+//---------------------------------------------------------------------------
+void __fastcall TForm1::Button3MouseUp(TObject *Sender, TMouseButton Button, TShiftState Shift,
+          int X, int Y)
+{
+	move_down = false;
+
+	Timer1->Enabled = false;
+}
+//---------------------------------------------------------------------------
+void __fastcall TForm1::Button4MouseDown(TObject *Sender, TMouseButton Button, TShiftState Shift,
+          int X, int Y)
+{
+	if (point_selected == nullptr && circle_selected == nullptr)
+		return;
+
+	move_left = true;
+
+	Timer1->Enabled = true;
+}
+//---------------------------------------------------------------------------
+void __fastcall TForm1::Button4MouseUp(TObject *Sender, TMouseButton Button, TShiftState Shift,
+          int X, int Y)
+{
+	move_left = false;
+
+	Timer1->Enabled = false;
+}
+//---------------------------------------------------------------------------
+void __fastcall TForm1::Button7MouseDown(TObject *Sender, TMouseButton Button, TShiftState Shift,
+          int X, int Y)
+{
+	if (point_selected == nullptr && circle_selected == nullptr)
+		return;
+
+	scale_in = true;
+
+	Timer1->Enabled = true;
+}
+//---------------------------------------------------------------------------
+void __fastcall TForm1::Button7MouseUp(TObject *Sender, TMouseButton Button, TShiftState Shift,
+          int X, int Y)
+{
+	scale_in = false;
+
+	Timer1->Enabled = false;
+}
+//---------------------------------------------------------------------------
+void __fastcall TForm1::Button8MouseDown(TObject *Sender, TMouseButton Button, TShiftState Shift,
+          int X, int Y)
+{
+	if (point_selected == nullptr && circle_selected == nullptr)
+		return;
+
+	scale_out = true;
+
+	Timer1->Enabled = true;
+}
+//---------------------------------------------------------------------------
+void __fastcall TForm1::Button8MouseUp(TObject *Sender, TMouseButton Button, TShiftState Shift,
+          int X, int Y)
+{
+	scale_out = false;
+
+	Timer1->Enabled = false;
+}
+//---------------------------------------------------------------------------
+void __fastcall TForm1::Button5MouseDown(TObject *Sender, TMouseButton Button, TShiftState Shift,
+          int X, int Y)
+{
+	if (point_selected == nullptr && circle_selected == nullptr)
+		return;
+
+	rotate_cw = true;
+
+	Timer1->Enabled = true;
+}
+//---------------------------------------------------------------------------
+void __fastcall TForm1::Button5MouseUp(TObject *Sender, TMouseButton Button, TShiftState Shift,
+          int X, int Y)
+{
+	rotate_cw = false;
+
+	Timer1->Enabled = false;
+}
+//---------------------------------------------------------------------------
+void __fastcall TForm1::Button6MouseDown(TObject *Sender, TMouseButton Button, TShiftState Shift,
+          int X, int Y)
+{
+    if (point_selected == nullptr && circle_selected == nullptr)
+		return;
+
+	rotate_acw = true;
+
+	Timer1->Enabled = true;
+}
+//---------------------------------------------------------------------------
+void __fastcall TForm1::Button6MouseUp(TObject *Sender, TMouseButton Button, TShiftState Shift,
+          int X, int Y)
+{
+	rotate_acw = false;
+
+	Timer1->Enabled = false;
+}
+//---------------------------------------------------------------------------

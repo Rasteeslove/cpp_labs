@@ -1,0 +1,46 @@
+//---------------------------------------------------------------------------
+
+#ifndef ShapeH
+#define ShapeH
+//---------------------------------------------------------------------------
+#endif
+
+#include "Point.h"
+
+typedef struct Shape
+{
+
+	Point * center;
+	double angle;
+    double scale;
+
+	Shape(int x, int y)
+	{
+		angle = 0;
+        scale = 1;
+        center = new Point(x, y);
+    }
+
+	virtual void Draw(TImage * screen)
+	{
+		center->Draw(screen);
+	}
+
+	void Rotate(double d_angle)
+	{
+		angle += d_angle;
+	}
+
+	void Scale(double mult)
+	{
+		scale *= mult;
+	}
+
+	void Move(int dx, int dy)
+	{
+		center->x += dx;
+        center->y += dy;
+    }
+
+} Shape;
+

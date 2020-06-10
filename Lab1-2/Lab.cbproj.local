@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<BorlandProject>
+  <Transactions>
+    <Transaction>2020/06/09 14:59:06.060,=C:\Users\krast\Documents\Embarcadero\Studio\Projects\Project1PCH1.h</Transaction>
+    <Transaction>2020/06/09 14:59:07.587,=C:\Users\krast\Documents\Embarcadero\Studio\Projects\Unit1.cpp</Transaction>
+    <Transaction>2020/06/09 15:01:46.543,C:\Users\krast\Desktop\Lab1-2\MainUnit.h=C:\Users\krast\Documents\Embarcadero\Studio\Projects\Unit1.h</Transaction>
+    <Transaction>2020/06/09 15:01:46.543,C:\Users\krast\Desktop\Lab1-2\MainUnit.cpp=C:\Users\krast\Documents\Embarcadero\Studio\Projects\Unit1.cpp</Transaction>
+    <Transaction>2020/06/09 15:01:46.543,C:\Users\krast\Desktop\Lab1-2\MainUnit.dfm=C:\Users\krast\Documents\Embarcadero\Studio\Projects\Unit1.dfm</Transaction>
+    <Transaction>2020/06/09 15:01:57.198,C:\Users\krast\Desktop\Lab1-2\Lab12.h=C:\Users\krast\Documents\Embarcadero\Studio\Projects\Project1PCH1.h</Transaction>
+    <Transaction>2020/06/09 15:04:11.626,C:\Users\krast\Desktop\Lab1-2\Lab.cbproj=C:\Users\krast\Documents\Embarcadero\Studio\Projects\Project1.cbproj</Transaction>
+    <Transaction>2020/06/09 15:04:43.077,=C:\Users\krast\Desktop\Lab1-2\Unit1.cpp</Transaction>
+    <Transaction>2020/06/09 15:05:23.678,C:\Users\krast\Desktop\Lab1-2\Shape.h=C:\Users\krast\Desktop\Lab1-2\Unit1.h</Transaction>
+    <Transaction>2020/06/09 15:05:23.678,C:\Users\krast\Desktop\Lab1-2\Shape.cpp=C:\Users\krast\Desktop\Lab1-2\Unit1.cpp</Transaction>
+    <Transaction>2020/06/09 15:06:22.625,=C:\Users\krast\Desktop\Lab1-2\Unit1.cpp</Transaction>
+    <Transaction>2020/06/09 15:08:44.987,C:\Users\krast\Desktop\Lab1-2\UnitMain.cpp=C:\Users\krast\Desktop\Lab1-2\Unit1.cpp</Transaction>
+    <Transaction>2020/06/09 15:08:44.987,C:\Users\krast\Desktop\Lab1-2\UnitMain.h=C:\Users\krast\Desktop\Lab1-2\Unit1.h</Transaction>
+    <Transaction>2020/06/09 15:09:06.860,C:\Users\krast\Desktop\Lab1-2\Polygon.cpp=C:\Users\krast\Desktop\Lab1-2\UnitMain.cpp</Transaction>
+    <Transaction>2020/06/09 15:09:06.861,C:\Users\krast\Desktop\Lab1-2\Polygon.h=C:\Users\krast\Desktop\Lab1-2\UnitMain.h</Transaction>
+    <Transaction>2020/06/09 15:09:30.117,=C:\Users\krast\Desktop\Lab1-2\Unit1.cpp</Transaction>
+    <Transaction>2020/06/09 15:10:40.994,C:\Users\krast\Desktop\Lab1-2\Point.cpp=C:\Users\krast\Desktop\Lab1-2\Unit1.cpp</Transaction>
+    <Transaction>2020/06/09 15:10:40.994,C:\Users\krast\Desktop\Lab1-2\Point.h=C:\Users\krast\Desktop\Lab1-2\Unit1.h</Transaction>
+    <Transaction>2020/06/10 15:55:19.903,=C:\Users\krast\Desktop\Lab1-2\Unit1.cpp</Transaction>
+    <Transaction>2020/06/10 15:55:36.882,C:\Users\krast\Desktop\Lab1-2\Circle.h=C:\Users\krast\Desktop\Lab1-2\Unit1.h</Transaction>
+    <Transaction>2020/06/10 15:55:36.882,C:\Users\krast\Desktop\Lab1-2\Circle.cpp=C:\Users\krast\Desktop\Lab1-2\Unit1.cpp</Transaction>
+  </Transactions>
+</BorlandProject>

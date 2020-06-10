@@ -1,0 +1,126 @@
+//---------------------------------------------------------------------------
+
+#ifndef PolygonH
+#define PolygonH
+//---------------------------------------------------------------------------
+#endif
+
+#include "Shape.h"
+
+class mPolygon : public Shape
+{
+public:
+
+	std::vector<mPoint*> rel_points;
+
+	mPolygon(double x, double y, int vertex_num, double distance) : Shape(x, y)
+	{
+		for (int i = 0; i < vertex_num; i++) {
+			rel_points.push_back(
+								 new mPoint(
+										   distance * sin(2 * PI * i / vertex_num),
+										   distance * cos(2 * PI * i / vertex_num)
+										   )
+								 );
+		}
+    }
+
+	void Draw(TImage * screen) override
+	{
+		Shape::Draw(screen);
+
+		for (int i = 0; i < rel_points.size(); i++) {
+			screen->Canvas->MoveTo(center->x + rel_points[i]->x,
+								   center->y + rel_points[i]->y);
+
+			screen->Canvas->LineTo(center->x + rel_points[(i + 1) % rel_points.size()]->x,
+								   center->y + rel_points[(i + 1) % rel_points.size()]->y);
+		}
+
+		for (int i = 0; i < rel_points.size(); i++) {
+			rel_points[i]->Draw(center->x, center->y, screen);
+		}
+	}
+
+	void Rotate(double d_angle) override
+	{
+		Shape::Rotate(d_angle);
+
+		double m_d_angle = d_angle;
+
+		for (int i = 0; i < rel_points.size(); i++) {
+			double xnew = rel_points[i]->x * cos(m_d_angle) - rel_points[i]->y * sin(m_d_angle);
+			double ynew = rel_points[i]->x * sin(m_d_angle) + rel_points[i]->y * cos(m_d_angle);
+
+			rel_points[i]->x = xnew;
+            rel_points[i]->y = ynew;
+		}
+	}
+
+	void Scale(double mult) override
+	{
+		Shape::Scale(mult);
+
+		for (int i = 0; i < rel_points.size(); i++) {
+			rel_points[i]->x *= mult;
+            rel_points[i]->y *= mult;
+		}
+	}
+
+	void Move(double dx, double dy) override
+	{
+		Shape::Move(dx, dy);
+	}
+
+	void updCenter()
+	{
+		double true_center_x = 0, true_center_y = 0;
+
+		for (int i = 0; i < rel_points.size(); i++) {
+			true_center_x += rel_points[i]->x;
+            true_center_y += rel_points[i]->y;
+		}
+
+		true_center_x /= rel_points.size();
+		true_center_y /= rel_points.size();
+
+		this->center->x += true_center_x;
+		this->center->y += true_center_y;
+
+		for (int i = 0; i < rel_points.size(); i++) {
+			rel_points[i]->x -= true_center_x;
+            rel_points[i]->y -= true_center_y;
+		}
+	}
+
+	double Perimeter()
+	{
+		double perimeter = 0;
+
+		for (int i = 0; i < rel_points.size(); i++) {
+            perimeter += Distance(*rel_points[i], *rel_points[(i + 1) % rel_points.size()]);
+		}
+
+        return perimeter;
+	}
+
+	double Square()
+	{
+		int x1, x2, y1, y2, x, y;
+		double s = 0;
+		x = rel_points[0]->x;
+		y = rel_points[0]->y;
+		x1 = x;
+		y1 = y;
+		for (int i = 0; i < (rel_points.size() - 1); i++) {
+			cin >> x2 >> y2;
+			s = s + (x1 + x2) * (y2 - y1);
+			x1 = x2;
+			y1 = y2;
+		}
+		s = s + (x + x2) * (y - y2);
+		return abs(s) / 2;
+	}
+
+};
+
